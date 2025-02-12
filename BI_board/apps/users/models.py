@@ -1,0 +1,20 @@
+from django.db import models
+
+class Users(models.Model):
+    username = models.CharField(unique=True, max_length=150)
+    email = models.CharField(unique=True, max_length=255)
+    password_hash = models.TextField()
+    role = models.CharField(max_length=50, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'users'
+
+class ApiIntegrations(models.Model):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True)
+    api_name = models.CharField(max_length=255)
+    api_key = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'api_integrations'
