@@ -7,5 +7,5 @@ router.register(r'users', UsersViewSet, basename='users')
 router.register(r'api-integrations', ApiIntegrationsViewSet, basename='api-integrations')
 
 urlpatterns = [
-    path('api/', include(router.urls)),
+    path('', include(router.urls)),
 ]

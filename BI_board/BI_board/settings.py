@@ -32,8 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.analytics',
     'apps.data_ingestion',
-    'apps.users'
-    'app.file_upload'
+    'apps.users',
 ]
 
 MIDDLEWARE = [

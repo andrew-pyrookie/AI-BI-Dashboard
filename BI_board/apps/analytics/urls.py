@@ -8,5 +8,5 @@ router.register(r'dashboards', DashboardsViewSet, basename='dashboards')
 router.register(r'scheduled-reports', ScheduledReportsViewSet, basename='scheduled-reports')
 
 urlpatterns = [
-    path('api/', include(router.urls)),
+    path('', include(router.urls)),
 ]
