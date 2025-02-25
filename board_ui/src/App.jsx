@@ -3,6 +3,8 @@ import Signup from "./components/signup";
 import QuantAnalyticsDashboard from "./components/home";
 import SignIn from "./components/login";
 import AnalyticsPage from "./components/analytics";
+import DataStreams from "./components/dataStreams";
+import SettingsPage from "./components/settings";
 import './index.css';
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/analytics" element={<AnalyticsPage/>} />
+        <Route path="/dataStreams" element={<DataStreams/>} />
+        <Route path="/settings" element={<SettingsPage/>} />
       </Routes>
     </Router>
   );
