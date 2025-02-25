@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { FiActivity, FiBarChart, FiDatabase, FiSettings, FiUploadCloud, FiX, FiMenu } from 'react-icons/fi';
+import { FiUploadCloud } from 'react-icons/fi';
 import { LineChart, Line, BarChart, Bar, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import Sidebar from './Sidebar';
+import Header from './Header';
 
 const AnalyticsPage = () => {
   const [selectedModel, setSelectedModel] = useState('sales-forecast');
   const [uploadedFile, setUploadedFile] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('dashboard');
 
   const salesData = [
     { month: 'Jan', actual: 65, predicted: 70 },
@@ -31,59 +32,19 @@ const AnalyticsPage = () => {
     { x: 60, y: 85, cluster: 'Group C' },
     { x: 70, y: 40, cluster: 'Group D' },
   ];
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setUploadedFile(file);
-      // Add your file processing logic here
       console.log('Uploaded file:', file.name);
-      // You would typically add API call or data processing here
     }
   };
 
-
   return (
     <div className="min-h-screen bg-white">
-      <div className={`fixed inset-y-0 left-0 z-50 bg-black text-white w-64 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300`}>
-        <div className="p-6">
-          <h1 className="text-2xl font-bold">Quant<span className="text-cyan-400">Analytics</span></h1>
-        </div>
-        <nav className="mt-8">
-          {[
-            { id: 'dashboard', icon: <FiActivity />, label: 'Dashboard' },
-            { id: 'analytics', icon: <FiBarChart />, label: 'Analytics' },
-            { id: 'data', icon: <FiDatabase />, label: 'Data Streams' },
-            { id: 'settings', icon: <FiSettings />, label: 'Settings' },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center px-6 py-3 text-sm hover:bg-gray-800 ${
-                activeTab === item.id ? 'bg-gray-800 border-r-4 border-cyan-400' : ''
-              }`}
-            >
-              <span className="mr-3">{item.icon}</span>
-              {item.label}
-            </button>
-          ))}
-        </nav>
-      </div>
-      {/* Header (Same as Dashboard) */}
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="flex items-center justify-between px-6 py-4">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="md:hidden text-gray-600 hover:text-gray-800"
-          >
-            {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </button>
-          <div className="flex items-center space-x-4">
-            <div className="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm">AI Model v2.4.1</div>
-            <div className="h-8 w-8 bg-gray-800 rounded-full"></div>
-          </div>
-        </div>
-      </header>
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Main Content */}
       <div className="md:ml-64">
@@ -93,22 +54,22 @@ const AnalyticsPage = () => {
               <h2 className="text-xl font-semibold">AI Analytics Engine</h2>
             </div>
             <div className="flex items-center space-x-4">
-    <label className="flex items-center px-4 py-2 bg-cyan-100 text-cyan-800 rounded-lg cursor-pointer hover:bg-cyan-200">
-      <FiUploadCloud className="mr-2" />
-      {uploadedFile ? uploadedFile.name : 'Upload Dataset'}
-      <input
-        type="file"
-        className="hidden"
-        onChange={handleFileUpload}
-        accept=".csv,.xlsx,.json"
-      />
-    </label>
-    {uploadedFile && (
-      <div className="text-sm text-gray-500">
-        ({Math.round(uploadedFile.size / 1024)} KB)
-      </div>
-    )}
-  </div>
+              <label className="flex items-center px-4 py-2 bg-cyan-100 text-cyan-800 rounded-lg cursor-pointer hover:bg-cyan-200">
+                <FiUploadCloud className="mr-2" />
+                {uploadedFile ? uploadedFile.name : 'Upload Dataset'}
+                <input
+                  type="file"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                  accept=".csv,.xlsx,.json"
+                />
+              </label>
+              {uploadedFile && (
+                <div className="text-sm text-gray-500">
+                  ({Math.round(uploadedFile.size / 1024)} KB)
+                </div>
+              )}
+            </div>
           </div>
         </header>
 
