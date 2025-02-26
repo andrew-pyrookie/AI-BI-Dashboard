@@ -1,14 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class Users(models.Model):
-    username = models.CharField(unique=True, max_length=150)
-    email = models.CharField(unique=True, max_length=255)
-    password_hash = models.TextField()
+class Users(AbstractUser):
     role = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'users'
+
+    def __str__(self):
+        return self.username
 
 class ApiIntegrations(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True)

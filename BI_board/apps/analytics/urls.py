@@ -1,6 +1,7 @@
+# apps/analytics/urls.py
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import AnalysisResultsViewSet, DashboardsViewSet, ScheduledReportsViewSet
+from .views import AnalysisResultsViewSet, DashboardsViewSet, ScheduledReportsViewSet, AnalyzeDataView
 
 router = DefaultRouter()
 router.register(r'analysis-results', AnalysisResultsViewSet, basename='analysis-results')
@@ -9,4 +10,5 @@ router.register(r'scheduled-reports', ScheduledReportsViewSet, basename='schedul
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('analyze/', AnalyzeDataView.as_view(), name='analyze-data'),
 ]
