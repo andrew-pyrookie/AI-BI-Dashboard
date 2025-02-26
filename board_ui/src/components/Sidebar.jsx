@@ -7,7 +7,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
 
   const menuItems = [
-    { id: 'dashboard', icon: <FiActivity />, label: 'Dashboard', path: '/' },
+    { id: 'dashboard', icon: <FiActivity />, label: 'Dashboard', path: '/dashboard' },
     { id: 'analytics', icon: <FiBarChart />, label: 'Analytics', path: '/analytics' },
     { id: 'data', icon: <FiDatabase />, label: 'Data Streams', path: '/dataStreams' },
     { id: 'settings', icon: <FiSettings />, label: 'Settings', path: '/settings' },
