@@ -7,12 +7,14 @@ from .serializers import UploadedDataSerializer, ProcessedDataSerializer
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from django.core.files.base import ContentFile
-from .pocessing import process_uploaded_file
+from rest_framework.parsers import MultiPartParser
+from .processing import process_uploaded_file
 import pandas as pd
 import json
 
 class FileUploadView(APIView):
     permission_classes = [IsAuthenticated]  # Only logged-in users can upload
+    parser_classes = [MultiPartParser]
 
     def post(self, request):
         file_obj = request.FILES.get('file')

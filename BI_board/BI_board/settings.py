@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'apps.analytics',
     'apps.data_ingestion',
+    'django_celery_results',
     'apps.users',
 ]
 
@@ -136,4 +137,19 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',  
     ),
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.MultiPartParser',  # Ensure this is included
+        'rest_framework.parsers.FormParser',
+    ],
 }
+
+# BI_board/settings.py
+
+# Celery Configuration
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')  # Default Redis URL
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')  # Store task results
+CELERY_ACCEPT_CONTENT = ['json']  # Tasks can only receive JSON data
+CELERY_TASK_SERIALIZER = 'json'   # Tasks serialized as JSON
+CELERY_RESULT_SERIALIZER = 'json' # Results serialized as JSON
+CELERY_TIMEZONE = 'UTC'           # Match Django's timezone

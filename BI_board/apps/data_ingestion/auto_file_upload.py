@@ -4,7 +4,7 @@ import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-UPLOAD_URL = "http://127.0.0.1:8000/api/data-ingestion/upload"  
+UPLOAD_URL = "http://127.0.0.1:8000/data-ingestion/upload"  
 WATCHED_FOLDER = "/media/"
 
 class FileUploadHandler(FileSystemEventHandler):

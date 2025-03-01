@@ -4,9 +4,11 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Users, ApiIntegrations
 from .serializers import UsersSerializer, ApiIntegrationsSerializer
+from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 
 class RegisterView(APIView):
+    permission_classes = [AllowAny] 
     def post(self, request):
         serializer = UsersSerializer(data=request.data)
         if serializer.is_valid():

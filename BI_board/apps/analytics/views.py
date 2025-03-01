@@ -40,6 +40,9 @@ class DashboardsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Dashboards.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class ScheduledReportsViewSet(viewsets.ModelViewSet):
     queryset = ScheduledReports.objects.all()
@@ -48,3 +51,6 @@ class ScheduledReportsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return ScheduledReports.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

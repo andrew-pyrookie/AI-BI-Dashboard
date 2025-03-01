@@ -1,4 +1,3 @@
-# apps/analytics/models.py
 from django.db import models
 from apps.data_ingestion.models import ProcessedData
 from apps.users.models import Users

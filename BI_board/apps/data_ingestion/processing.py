@@ -18,10 +18,10 @@ def process_uploaded_file(uploaded_data_id):
             df = pd.read_json(file_path)
         else:
             print("❌ Unsupported file format")
-            return
+            return None
 
-        # Handle missing values
-        df.fillna(method="ffill", inplace=True)  # Forward fill as an example
+        # Handle missing values with ffill() instead of fillna(method="ffill")
+        df = df.ffill()
 
         # Convert categorical features
         categorical_cols = df.select_dtypes(include=['object']).columns
@@ -30,8 +30,21 @@ def process_uploaded_file(uploaded_data_id):
 
         # Save processed data
         processed_json = df.to_json(orient="records")
-        ProcessedData.objects.create(uploaded_data=uploaded_data, processed_json=processed_json)
+        processed_data = ProcessedData.objects.create(
+            uploaded_data=uploaded_data,
+            processed_json=processed_json
+        )
+
+        # Mark as processed
+        uploaded_data.processed = True
+        uploaded_data.save()
 
         print(f"✅ File processed and saved: {file_path}")
+        return processed_data.id
+
+        
     except Exception as e:
         print(f"⚠ Error processing file: {e}")
+        uploaded_data.processed = False
+        uploaded_data.save()
+        return None
